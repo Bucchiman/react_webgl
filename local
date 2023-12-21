@@ -3,7 +3,7 @@
 # FileName:     local
 # Author:       8ucchiman
 # CreatedDate:  2023-11-12 20:51:23
-# LastModified: 2023-12-21 12:05:11
+# LastModified: 2023-12-21 22:38:20
 # Reference:    8ucchiman.jp
 # Description:  ---
 #
@@ -92,6 +92,7 @@ function ldeploy () {
     # u: update
     npm run build
     npm install gh-pages --save-dev
+    npm run deploy
 }
 
 
