@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef } from 'react';
+import { Canvas, useFrame } from 'react-three-fiber';
+import { Mesh } from 'three';
+//import * as THREE from 'three';
 
-function App() {
+const Cube: React.FC = () => {
+  const cubeRef = useRef<Mesh>();
+
+  useFrame(() => {
+    if (cubeRef.current) {
+      cubeRef.current.rotation.x += 0.01;
+      cubeRef.current.rotation.y += 0.01;
+    }
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <mesh ref={cubeRef as React.MutableRefObject<Mesh>}>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshBasicMaterial color={0x00ff00} />
+    </mesh>
+  );
+};
+
+const WebGLScene: React.FC = () => {
+  return (
+    <Canvas>
+      <ambientLight />
+      <Cube />
+    </Canvas>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <div style={{ width: '100vw', height: '100vh' }}>
+      <WebGLScene />
     </div>
   );
-}
+};
 
 export default App;
